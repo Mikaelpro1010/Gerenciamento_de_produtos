@@ -29,4 +29,16 @@ class ProductTest extends TestCase
         $this->assertDatabaseHas('produtos', $data);
     }
 
+    /** @test */
+    public function it_can_read_a_product(){
+        $product = Product::factory()->create();
+
+        $response = $this->get('/products/' . $product->id);
+
+        $response->assertStatus(200);
+        $response->assertJson($product->toArray());
+    }
+
+
+
 }
